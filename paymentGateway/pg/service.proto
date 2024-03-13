@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package pg;
+
+option go_package = "paymentGateway/api/pg";
+
+import "client/client.proto";
+import "pay/paymode.proto";
+import "pay/payment.proto";
+import "google/rpc/status.proto";
+
+service PaymentGateway {
+  rpc AddClient(AddClientRequest) returns (AddClientResponse);
+  rpc DeleteClient(DeleteClientRequest) returns (DeleteClientResponse);
+  rpc HasClient(HasClientRequest) returns (HasClientResponse);
+  rpc ListPayModes(ListPayModesRequest) returns (ListPayModesResponse);
+  rpc AddPayMode(AddPayModeRequest) returns (AddPayModeResponse);
+  rpc RemovePayMode(RemovePayModeRequest) returns (RemovePayModeResponse);
+  rpc MakePayment(MakePaymentRequest) returns (MakePaymentResponse);
+}
+
+message AddClientRequest {
+  client.Client client = 1;
+}
+
+message AddClientResponse {
+  string id = 1;
+  google.rpc.Status status = 2;
+}
+
+message DeleteClientRequest {
+  string client_code = 1;
+}
+
+message DeleteClientResponse {
+  google.rpc.Status status = 1;
+}
+
+message HasClientRequest {
+  client.Client client = 1;
+}
+
+message HasClientResponse {
+  bool hasClient = 1;
+  google.rpc.Status status = 2;
+}
+
+message ListPayModesRequest {
+  string client_code = 1;
+}
+
+message ListPayModesResponse {
+  repeated paymode.PayModes paymodes = 1;
+  google.rpc.Status status = 2;
+}
+
+message AddPayModeRequest {
+  paymode.PayMode paymode = 1;
+  string client_code = 2;
+}
+
+message AddPayModeResponse {
+  google.rpc.Status status = 1;
+}
+
+message RemovePayModeRequest {
+  paymode.PayMode paymode = 1;
+  string client_code = 2;
+}
+
+message RemovePayModeResponse {
+  google.rpc.Status status = 1;
+}
+
+message MakePaymentRequest {
+  pay.PG_Transaction payment_details = 1;
+  string client_code = 2;
+}
+
+message MakePaymentResponse {
+  google.rpc.Status status = 1;
+}

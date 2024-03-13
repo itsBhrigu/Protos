@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package paymode;
+
+option go_package = "paymentGateway/api/pay";
+
+message PayMode {
+  PayModes mode_type = 1;
+  oneof payment_info {
+    CreditCard credit_card = 2;
+    NetBanking net_banking = 3;
+    UPI upi = 4;
+  }
+}
+
+message CreditCard {
+  string card_number = 1;
+  string cvv = 2;
+  string expiry = 3;
+}
+
+message NetBanking {
+  string username = 1;
+  string password = 2;
+}
+
+message UPI {
+  string vpa = 1;
+}
+
+enum PayModes {
+  CREDIT_CARD = 0;
+  NET_BANKING = 1;
+  UPI_VPA = 2;
+}

@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package commons;
+
+option go_package = "paymentGateway/api/commons";
+
+enum IdCategory {
+  IdCategory_UNDEFINED = 0;
+  TRANSACTION = 1;
+  CLIENT = 2;
+}

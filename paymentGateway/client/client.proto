@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package client;
+
+option go_package = "paymentGateway/api/client";
+
+message Client {
+  string name = 1;
+  string client_code = 2;
+  // other parameters
+}
+
+enum PopularClientCodes {
+  FLIPKART = 0;
+  AMAZON = 1;
+}

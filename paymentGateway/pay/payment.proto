@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package pay;
+
+option go_package = "paymentGateway/api/pay";
+
+import "google/type/money.proto";
+import "pay/paymode.proto";
+
+message Bank_Transaction {
+  string id = 1;
+  google.type.Money money = 2;
+}
+
+message PG_Transaction {
+  string id = 1;
+  google.type.Money money = 2;
+  paymode.PayMode paymode = 3;
+}

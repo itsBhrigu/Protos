@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package router;
+
+option go_package = "paymentGateway/api/router";
+
+enum RoutingRules {
+  RoutingRules_UNDEFINED = 0;
+  RoutingRule_TRAFFIC_BASED = 1;
+  RoutingRules_PAY_MODE_BASED = 2;
+}
+
+message TrafficBased {
+  map<string, float> split = 1; // Bank -> % traffic
+}
+
+message PayModeBased {
+  map<string, string> split = 1; // PayMode -> Bank
+}

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package paymode;
+
+option go_package = "paymentGateway/api/bank";
+
+import "pay/payment.proto";
+import "google/rpc/status.proto";
+import "bank/bank.proto";
+
+service Bank {
+  rpc ProcessPayment (ProcessPaymentRequest) returns (ProcessPaymentResponse);
+}
+
+message ProcessPaymentRequest {
+  pay.Bank_Transaction payment = 1;
+  bank.BankCode bank_code = 2;
+}
+
+message ProcessPaymentResponse {
+  google.rpc.Status status = 1;
+}

@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package bank;
+
+option go_package = "paymentGateway/api/bank";
+
+message Bank {
+  string name = 1;
+  BankCode code = 2;
+  // other parameters
+}
+
+enum BankCode {
+  BankCode_UNDEFINED = 0;
+  HDFC = 1;
+  AXIS = 2;
+  ICICI = 3;
+}

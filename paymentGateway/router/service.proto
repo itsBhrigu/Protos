@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package router;
+
+option go_package = "paymentGateway/api/router";
+
+import "google/type/money.proto";
+import "pay/paymode.proto";
+import "google/rpc/status.proto";
+import "router/rules.proto";
+
+service Router {
+  rpc Route (RouteRequest) returns (RouteResponse);
+  rpc SetRoutingRule(SetRoutingRuleRequest) returns (SetRoutingRuleResponse);
+}
+
+message RouteRequest {
+  google.type.Money money = 1;
+  paymode.PayMode paymode = 2;
+  string client_code = 3;
+}
+
+message RouteResponse {
+  google.rpc.Status status = 1;
+}
+
+message SetRoutingRuleRequest {
+  string client = 1;
+  router.RoutingRules rule_type = 2;
+  oneof rule {
+    router.TrafficBased traffic_based = 3;
+    router.PayModeBased paymode_based = 4;
+  }
+}
+
+message SetRoutingRuleResponse {
+  google.rpc.Status status = 1;
+}
